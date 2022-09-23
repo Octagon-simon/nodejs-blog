@@ -1,0 +1,578 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+html,
+body {
+    /*font-family: 'Libre Baskerville', serif;*/
+    font-family: 'Ubuntu', sans-serif;
+    overflow-x: hidden;
+}
+
+label{
+    font-size:1rem !important;
+}
+.search.form-control:focus, .search.btn:focus{
+    border-style: dotted !important;
+}
+.bgimage {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.mw-50 {
+    margin: auto;
+    max-width: 50% !important;
+}
+
+.mw-70 {
+    margin: auto;
+    max-width: 70% !important;
+}
+
+.form-group:not(:last-child){
+    margin-bottom: 1rem;
+}
+
+.text-app-primary {
+    color: var(--app-primary) !important;
+}
+
+.list-style-none {
+    list-style-type: none;
+}
+
+.footer-link li a {
+    font-weight: 700;
+}
+
+.footer-link:hover {
+    color: var(--app-primary) !important;
+}
+
+.footer-link li:not(:last-child) {
+    padding-bottom: 5px;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+p {
+    font-size: 1.09em;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.btn-rounded {
+    border-radius: 50px;
+    padding: 12px 20px;
+}
+
+.bg-light-grey{
+    background-color:#f8f8f8 !important;
+}
+
+.fw-bold {
+    font-weight: bold;
+}
+
+.radius-0 {
+    border-radius: 0%;
+}
+
+.font-ubuntu {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.font-roboto {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.font-libre {
+    font-family: 'Libre Baskerville', serif !important;
+}
+
+.font-nunito {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.list-style-none {
+    list-style: none;
+}
+
+.list-inline,
+.list-unstyled {
+    padding-left: 0;
+    list-style: none
+}
+
+.list-inline-item {
+    display: inline-block
+}
+
+.list-inline-item:not(:last-child) {
+    margin-right: .5rem
+}
+
+button,
+a[class="btn"] {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.navbar-light .navbar-toggler {
+    border-color: transparent !important;
+    background-color: #ef00911c;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+.carousel-btn-group {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.bg-home-form {
+    /*background-image: linear-gradient(to left bottom, #0050ff, #b800d0, #ef0091, #fe004f, #f01603); */
+    /*background-image: linear-gradient(to left bottom,#0288D1, #0288D1, #0050ff, #0050ff, #0050ff); */
+    background-color: #f3f3f3;
+}
+
+hr {
+    background-color: whitesmoke !important;
+    border: none;
+    display: block;
+    height: 2px;
+    margin: 1.5rem 0;
+    opacity: 1;
+}
+
+button.btn {
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-app-primary {
+    background-color: var(--app-primary);
+    border-color: var(--app-primary);
+    color: #fff;
+}
+
+.btn-app-primary:hover {
+    background-color: var(--app-primary-dark) !important;
+    color: #fff !important;
+    border-color: var(--app-primary-dark) !important;
+}
+
+.btn-app-primary-outline {
+    border-color: var(--app-primary) !important;
+    background-color: #fff;
+    color: var(--app-primary);
+}
+
+/* I wish CSS had conditional statements */
+.btn-app-primary-outline:hover {
+    background-color: var(--app-primary);
+    border-color: var(--app-primary);
+    color: #fff;
+}
+
+.btn-app-danger {
+    background-color: var(--app-danger);
+    border-color: var(--app-danger);
+    color: #fff;
+}
+
+.btn-app-danger:hover {
+    background-color: var(--app-danger-dark) !important;
+    color: #fff !important;
+    border-color: var(--app-danger-dark) !important;
+}
+
+
+/* 
+** The Header Media Queries **
+** Tweak as per your needs **
+*/
+.wrapper {
+    max-width: 1140px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* margin-left: auto;*/
+    margin-right: auto;
+}
+
+.navbar-brand {
+    align-self: center;
+}
+
+.sr-only {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #fff;
+    background-color: #2fa0f6;
+    min-width: 120px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.button svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+.button span {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .button span {
+        display: initial;
+    }
+}
+
+.button--icon {
+    min-width: initial;
+    padding: 0.5rem;
+}
+
+
+.brand {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.site-header {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    z-index: 9999999;
+
+}
+
+.site-header__wrapper {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+@media (min-width: 600px) {
+    .site-header__wrapper {
+        display: flex;
+        /*justify-content: space-between;*/
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+@media (min-width: 600px) {
+    .nav__wrapper {
+        display: flex;
+    }
+}
+
+@media (max-width: 599px) {
+    .nav__wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        background-color: #fff;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    .nav__wrapper.active {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav__item a {
+    display: block;
+    padding: 1.5rem 1rem;
+}
+
+.nav__item a:hover {
+    color: #f10087 !important;
+}
+
+.nav__toggle {
+    display: none;
+}
+
+@media (max-width: 599px) {
+    .nav__toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+}
+
+/** SPAN WITH BG COLORS **/
+.bg-span {
+    background-color: #ffa5d7;
+}
+
+.w-10 {
+    width: 2.5rem;
+}
+
+.h-2 {
+    height: 0.5rem;
+}
+
+.bottom-1 {
+    bottom: 1rem;
+}
+
+.right-0 {
+    right: 0px;
+}
+
+.left-0 {
+    left: 0px;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.relative {
+    position: relative;
+}
+
+.service-area {
+    background-color: rgb(252 230 235 / 72%);
+    /*#f5f5f5;*/
+}
+
+/* EXTENSIONS */
+.ext-card {
+    max-width: 250px;
+    border: 1px solid #eee;
+    margin: auto;
+    background-color: #fff;
+}
+
+.ext-card-head {
+    height: 150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-self: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: #efefef;
+}
+
+.ext-card-head>i {
+    align-self: center;
+}
+
+.title {
+    color: #363636;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.125;
+}
+
+.title.is-1 {
+    font-size: 3rem;
+}
+
+.title.is-2 {
+    font-size: 2.5rem;
+}
+
+.title.is-3 {
+    font-size: 2rem;
+}
+
+.title.is-4 {
+    font-size: 1.5rem;
+}
+
+.title.is-5 {
+    font-size: 1.25rem;
+}
+
+.title.is-6 {
+    font-size: 1rem;
+}
+
+.title.is-7 {
+    font-size: 0.75rem;
+}
+
+.subtitle {
+    color: #4a4a4a;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+/** process **/
+.process-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.process {
+    display: grid;
+    place-items: center;
+    width: 200px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 1em;
+}
+
+.help-figure {
+    position: absolute;
+    z-index: 99999999;
+    color: #fff;
+    top: 10%;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    border-bottom: 2px solid #fff;
+}
+
+.help-single:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) !important;
+}
+
+.process-row>.process-col:not(:last-child) {
+    margin-right: 10px;
+}
+
+.carousel.carousel-covid-news {
+    height: 50px;
+    background: rgb(190 213 238);
+    border-bottom: 1px solid rgb(198, 198, 198);
+    transition: all 0.5s ease 0s;
+    padding: 10px;
+}
+
+footer.footer *:not(i) {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+footer.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.grey-text {
+    color: #9e9e9e !important;
+}
+
+.link-text {
+    text-decoration: none !important;
+}
+
+.benefit-card {
+    background-color: #fff !important;
+    max-width: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+}
+
+footer hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    background-color: #4d0630 !important;
+}
+
+.footer {
+    background-color:
+        /*#04336b*/
+        #510331 !important;
+    color: #fff;
+    bottom: 0;
+}
+
+@media screen and (min-width: 0px) and (max-width: 699px) {
+    .process-col {
+        flex-basis: 100%;
+    }
+
+    .process-row>.process-col:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .process {
+        margin: auto;
+    }
+
+    .benefit-row>.benefit-col:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    .benefit-card {
+        margin: auto;
+    }
+
+    .achievement-col {
+        display: inline-flex !important;
+        justify-content: center;
+    }
+
+    .achievement-col:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}
+
+:root {
+    --app-primary: #004897;
+    --app-primary-dark: #01356d;
+    --app-danger: #be1e2d;
+    --app-danger-dark: #991926;
+}

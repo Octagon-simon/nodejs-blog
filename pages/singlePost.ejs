@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./layouts/head'); -%>
+    <body>
+        <!-- Navigation-->
+        <%- include('./layouts/navbar'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url(<%= (typeof post.cover !== 'undefined') ? post.cover : '/assets/img/post-bg.jpg' %>)">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <% if(!post){ %>
+                            <h1 class="text-light">A POST WITH THIS TITLE DOES NOT EXIST</h1>
+                        <% }else{  %>
+                        <div class="post-heading">
+                            <h1><%= post.title %></h1>
+                            <h2 class="subheading"><%= post.subtitle %></h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!"><%= post.username %></a>
+                                on <%= new Date(post.datePosted).toDateString() %>
+                            </span>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7" id="post_content">
+                        <% if(post){ %>
+                            <script id="scr">
+                                const str = `<%= post.content %>`;
+                                document.querySelector('#post_content').innerText  = new DOMParser().parseFromString(str, 'text/html').querySelector('body').innerHTML
+                            </script>
+                        <% }else{ %>
+                            <p class="text-center alert alert-danger mt-5 mb-5">A Post with this <b>Title</b> does not exist</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+
+        <!-- Footer-->
+        <%- include('./layouts/footer'); -%>
+        <%- include('./layouts/scripts'); -%>
+    </body>
+</html>
+<!-- 
+
+Hello and welcome to another edition of my post today.
+
+Just a few weeks back, I made my first GitHub contribution to a repository and submitted a pull request which was approved 😲
+
+This was my first contribution and it made me want to make more contributions to his repository.
+
+I integrated a search icon on his navbar and he loved it 😁
+
+That's all for now!
+
+Thank you for reading
+
+
+-->

@@ -1,0 +1,22 @@
+<!-- Bootstrap core JS-->
+<script src="./assets/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="./assets/js/scripts.js"></script>
+<!-- show message to user-->
+<% if(typeof success !== "undefined"){ %>
+    <%  if(success) { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                toastr.success('<%= message %>')
+            })
+        </script>
+        <%   }else{ %>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    toastr.error('<%= message %>')
+                })
+            </script>
+    <%   } %>
+<% } %>
+<!-- toastr -->
+<script src="assets/toastr/toastr.min.js"></script>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./layouts/head'); -%>
+    <body>
+        <!-- Navigation-->
+        <%- include('./layouts/navbar'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('/assets/img/contact-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Create New Post</h1>
+                            <span class="subheading">You have the power in your hands right now, but what are you going to create?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>Submit a well articulated post</p>
+                        <div class="my-5">
+                            <!-- to get an API token!-->
+                            <form id="form_new_post" action="/posts/new" method="post" enctype="multipart/form-data">
+                                <div class="form-floating">
+                                    <input class="form-control" octavalidate="R" accept-mime="image/*" id="inp_post_cover" type="file"  name="cover" />
+                                    <label for="inp_post_cover">Cover Image</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" octavalidate="R,TEXT" id="inp_post_title" type="text" placeholder="Enter Post Title" name="title" />
+                                    <label for="inp_post_title">Title</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" octavalidate="TEXT" id="inp_post_subtitle" type="text" placeholder="Enter Post subtitle" name="subtitle" />
+                                    <label for="inp_post_subtitle">Sub Title</label>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea  octavalidate="R,TEXT" class="form-control" id="inp_blog_content" placeholder="Enter Post Content" style="height: 12rem" name="content"></textarea>
+                                    <label for="inp_blog_content">Content</label>
+                                </div>
+                                <br />
+                                <!-- Submit Button-->
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer-->
+        <%- include('./layouts/footer'); -%>
+        <%- include('./layouts/scripts'); -%>
+    </body>
+    <script>
+        //create new instance of the function
+        const myForm = new octaValidate('form_new_post', {
+            successBorder: true,
+            strictMode: true,
+            strictWords: ["admin", "null", "undefined"]
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('#form_new_post').addEventListener('submit', function (e) {
+                const formData = new FormData(this);
+                if (!myForm.validate()) {
+                    e.preventDefault();
+                }else{
+                    e.currentTarget.submit();
+                }
+            })
+        })
+    
+    </script>
+</html>

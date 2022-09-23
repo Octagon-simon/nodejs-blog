@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./layouts/head'); -%>
+    <style>
+        .light-shadow{
+            box-shadow: 0px 0px 8px #ddd;
+        }
+    </style>
+    <body>
+        <!-- Navigation-->
+        <%- include('./layouts/navbar'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Clean Blog</h1>
+                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container light-shadow p-4 px-lg-5 mb-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form id="form_search" method="get" action="/search">
+                        <h3 class="mb-3"> Search for a Post</h3>
+                        <div class="input-group align-self-center" style="height: 50px;">
+                            <input type="text" placeholder="Enter a post title to begin search" aria-label="Search" aria-describedby="basic-addon2" id="inp_post_title" name="title" required="" class="search form-control h-100 align-self-center bg-light">
+                            <div class="input-group-append align-self-center" style="height: 50px;">
+                                <button type="submit" id="btn_submit" style="padding:1em" class="search btn h-100 btn-primary ml-0">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container light-shadow p-4 px-lg-5 mb-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-sm-12">
+                    <% if(posts.length !== 0){ %>
+                        <% for(let i = 0; i < posts.length; i++){ %>
+                        <!-- Post preview-->
+                        <div class="post-preview">
+                            <a href="./post/<%= posts[i].title.split(' ').join('-') %>">
+                                <h2 class="post-title"><%= posts[i].title %></h2>
+                                <h3 class="post-subtitle"><%= posts[i].content %></h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#!"><%= posts[i].username %></a>
+                                on <%= new Date(posts[i].datePosted).toDateString() %>
+                            </p>
+                        </div>
+                        <% } %>
+                    <% }else{ %>
+                    <div class="alert alert-danger mt-5 mb-5">
+                        <p class="m-0 text-center">No posts found</p>
+                    </div>
+                    <% } %>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <%- include('./layouts/footer'); -%>
+        <%- include('./layouts/scripts'); -%>
+    </body>
+</html>

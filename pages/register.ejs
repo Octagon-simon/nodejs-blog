@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./layouts/head') %>
+    <style>
+        .user-cont {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 500px;
+        }
+
+        .user-section {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 8px #ddd;
+        }
+
+        .old-user{
+                font-size: 1rem;
+                color: var(--app-primary);
+            }
+    </style>
+</head>
+
+<body>
+    <main>
+    <div class="container user-cont">
+        <section class="user-section">
+            <form method="post" action="/register" id="form_register" novalidate>
+                <h4 class="title is-4 mb-4 mt-2 text-center">REGISTER</h4>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input id="inp_uname" placeholder="Enter your username" octavalidate="R,USERNAME"
+                        class="form-control" name="uname" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input id="inp_email" placeholder="Enter your email" octavalidate="R,EMAIL" class="form-control"
+                        name="email" type="email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input id="inp_pass" placeholder="Enter a password" octavalidate="R,PASS" class="form-control"
+                        type="password" name="pass">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Re-enter Password</label>
+                    <input id="inp_conpass" placeholder="Re-enter password" class="form-control" type="password"
+                        name="conPass" equalto="inp_pass">
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary btn-block">Create account</button>
+                </div>
+                <a href="/login" class="d-block old-user">Alreay have an Account? Click here to login</a>
+            </form>
+            </form>
+        </section>
+    </div>
+    </main>
+    <%- include('./layouts/scripts') %>
+</body>
+<script>
+    //create new instance of the function
+    const myForm = new octaValidate('form_register', {
+        successBorder: true,
+        strictMode: true,
+        strictWords: ["admin", "null", "undefined"]
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('#form_register').addEventListener('submit', function (e) {
+            if (!myForm.validate()) {
+                    e.preventDefault();
+                }else{
+                    e.currentTarget.submit();
+                }
+
+        })
+    })
+
+</script>
+
+</html>
