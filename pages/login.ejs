@@ -49,7 +49,7 @@
         </section>
     </div>
     </main>
-    <%- include('./layouts/scripts') %>
+    <%- include('./layouts/scripts'); %>
 </body>
 
 <script>
@@ -63,8 +63,26 @@
         document.querySelector('#form_login').addEventListener('submit', function (e) {
             if (!myForm.validate()) {
                 e.preventDefault();
-            } else {
-                e.currentTarget.submit();
+                /*
+                const formData = new FormData(this)
+                fetch('/login', {method: "post", body: formData})
+                .then(res => res.json())
+                .then( data => {
+                    if(data.success){
+                        toastr.success(data.message)
+                        setTimeout(() =>{
+                            window.location.href = "/"
+                        }, 3000)
+                    }else{
+                        toastr.error(data.message)
+                    }
+                })
+                .catch( err => {
+                    console.error(err)
+                })
+            */
+            }else{
+                e.currentTarget.submit()
             }
         })
     })

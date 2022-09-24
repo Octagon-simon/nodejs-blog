@@ -20,20 +20,36 @@ module.exports = (req, res) => {
                 if (user.checkPassword(postData.pass)) {
                     //set user id as session value
                     req.session.userId = user._id;
-                    return res.redirect('/')
+                    req.session.loggedInData = JSON.stringify({success : true, message : "Login successful", loggedInTime : new Date().getTime()})
                     
+                    return res.redirect('/')
+                    /*
+                    return res.status(200).json({
+                        success: true,
+                        message: "Login Successful"
+                    })*/
                 } else {
+                    
                     return res.render('login', {
                         success: false,
                         message: "Username or Password is Invalid"
-                    })
+                    })/*
+                    return res.status(401).json({
+                        success: false,
+                        message: "Username or Password is Invalid"
+                    })*/
                 }
             } else {
                 //why not return to registration page
+                
                 return res.render('login', {
                     success: false,
                     message: "User does not exist"
-                })
+                })/*
+                return res.status(401).json({
+                    success: false,
+                    message: "User does not exist"
+                })*/
             }
         })
 

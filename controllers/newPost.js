@@ -53,7 +53,6 @@ module.exports = (req, res) => {
             })
         }
     }else{
-        console.log("yes get")
         return res.render('newPost', { base: "../" })
     }
 }

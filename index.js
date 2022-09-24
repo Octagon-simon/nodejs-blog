@@ -37,11 +37,7 @@ app.use("*", (req, res, next) => {
 
     next();
 })
-//register 404 page
-/*
-app.use((req, res) => {
-    return res.render('404')
-})*/
+
 //set template engine
 app.set('view engine', 'ejs')
 //set the default views folder
@@ -79,7 +75,14 @@ app.get('/', async (req, res) => {
             cover : item.cover
         })
     }))
-    return res.render('index', { posts : output })
+    let loggedInData = undefined
+
+    if(req.session && req.session.loggedInData) {
+        loggedInData = JSON.parse(req.session.loggedInData)
+        delete req.session.loggedInData
+    } 
+    
+    return res.render('index', { posts : output, loggedInData })
 })
 //load about page
 app.get('/about', (req, res) => {
@@ -117,8 +120,15 @@ app.post('/login', require('./controllers/userLogin'))
 app.get('/logout', (req, res) => {
     //destroy session
     req.session.destroy( () => {
+        //reset global var
+        loggedIn = false
         return res.redirect('/')
     })
+})
+//register 404 page
+//must be the last stuff
+app.use((req, res) => {
+    return res.render('404')
 })
 
 app.listen(port, () => {
