@@ -27,24 +27,24 @@
                             <!-- to get an API token!-->
                             <form id="form_new_post" action="/posts/new" method="post" enctype="multipart/form-data">
                                 <div class="form-floating">
-                                    <input class="form-control" octavalidate="R" accept-mime="image/*" id="inp_post_cover" type="file"  name="cover" />
+                                    <input class="form-control" multiple octavalidate="R" saccept-mime="image/*" id="inp_post_cover" type="file"  name="cover" />
                                     <label for="inp_post_cover">Cover Image</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" octavalidate="R,TEXT" id="inp_post_title" type="text" placeholder="Enter Post Title" name="title" />
+                                    <input class="form-control" octavalidate="R,TEXT" id="inp_post_title" type="text" placeholder="Enter Post Title" name="title" value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['title']){%><%- JSON.parse(formData)['title'] %><% } %>" />
                                     <label for="inp_post_title">Title</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" octavalidate="TEXT" id="inp_post_subtitle" type="text" placeholder="Enter Post subtitle" name="subtitle" />
+                                    <input class="form-control" octavalidate="TEXT" id="inp_post_subtitle" type="text" placeholder="Enter Post subtitle" name="subtitle" value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['subtitle']){%><%- JSON.parse(formData)['subtitle'] %><% } %>" />
                                     <label for="inp_post_subtitle">Sub Title</label>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea  octavalidate="R,TEXT" class="form-control" id="inp_blog_content" placeholder="Enter Post Content" style="height: 12rem" name="content"></textarea>
+                                    <textarea octavalidate="R,TEXT" class="form-control" id="inp_blog_content" placeholder="Enter Post Content" style="height: 12rem" name="content"><% if(typeof formData !== 'undefined' && JSON.parse(formData)['content']){%><%- JSON.parse(formData)['content'] %><% } %></textarea>
                                     <label for="inp_blog_content">Content</label>
                                 </div>
                                 <br />
                                 <!-- Submit Button-->
-                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                                <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Create Post</button>
                             </form>
                         </div>
                     </div>
@@ -72,6 +72,20 @@
                 }
             })
         })
-    
     </script>
+    <% if(typeof validationErrors !== "undefined"){ %>
+        <script>
+            myForm.showBackendErrors(<%- validationErrors %>)
+        </script>
+    <% } %>
 </html>
+<!--
+
+I and my team have finally launched Splatoon Movies Studio
+
+Splatoon is a Movie studio that produces cartoon animated movies for little children. This movie studio provides high quality movies with a good story line just for children.
+
+Splatoon hosts a movie night every Friday evening and allows guests to enjoy movie premieres.
+
+
+-->

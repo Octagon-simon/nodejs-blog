@@ -16,8 +16,8 @@
                     <div class="row gx-4 gx-lg-5 justify-content-center">
                         <div class="col-md-10 col-lg-8 col-xl-7">
                             <div class="site-heading">
-                                <h1>Clean Blog</h1>
-                                <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                                <h1>MY POSTS</h1>
+                                <span class="subheading">Here's a list of posts that I've created</span>
                             </div>
                         </div>
                     </div>
@@ -60,11 +60,7 @@
                                         </h3>
                                     </a>
                                     <p class="post-meta">
-                                        Posted by
-                                        <a href="#!">
-                                            <%= posts[i].username %>
-                                        </a>
-                                        on <%= new Date(posts[i].datePosted).toDateString() %>
+                                        Posted on <%= new Date(posts[i].datePosted).toDateString() %>
                                     </p>
                                 </div>
                                 <% } %>
@@ -85,22 +81,6 @@
             <!-- Footer-->
             <%- include('./layouts/footer'); -%>
                 <%- include('./layouts/scripts'); -%>
-                    <!-- show message to user-->
-                    <% if(typeof loggedInData !== "undefined" ){ %>
-                        <% if(loggedInData.success) { %>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', () => {
-                                    toastr.success('<%= loggedInData.message %>')
-                                })
-                            </script>
-                            <% }else{ %>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', () => {
-                                        toastr.error('<%= loggedInData.message %>')
-                                    })
-                                </script>
-                                <% } %>
-                                    <% } %>
     </body>
 
 </html>

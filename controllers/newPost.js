@@ -1,19 +1,28 @@
 //import blog post model
 const Post = require('../models/postModel')
 const path = require('path')
+const octaValidate = require('../middlewares/octaValidate')
+
+const validate = new octaValidate("form_new_post", {
+    strictMode: true,
+    strictWords: ["admin", "user", "test"]
+})
 
 module.exports = (req, res) => {
     //check if session exists
-    if( !req.session || !req.session.userId)
+    if (!req.session || !req.session.userId)
         //redirect to login page if no session exists
         return res.redirect('/login')
 
-    if(req.method == "POST"){
+    if (req.method == "POST") {
+
         try {
+            //post data
             const postData = Object.assign({}, req.body)
+
             //get the uploaded image
             const coverImage = req.files.cover
-    
+
             //check if email address exists already
             Post.findOne({ title: postData.title }, (err, data) => {
                 if (err)
@@ -37,14 +46,13 @@ module.exports = (req, res) => {
                             }
                         })
                     })
-    
-    
+
+
                 } else {
                     return res.render('newPost',
                         { success: false, message: "A post with this Title exists Already", base: "../" })
                 }
             })
-    
         } catch (err) {
             console.log(err)
             res.status(500).send({
@@ -52,7 +60,7 @@ module.exports = (req, res) => {
                 message: "Internal server error"
             })
         }
-    }else{
+    } else {
         return res.render('newPost', { base: "../" })
     }
 }

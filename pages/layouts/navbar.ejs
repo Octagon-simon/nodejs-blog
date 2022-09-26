@@ -9,13 +9,15 @@
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./">Home</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./about">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./sample-post">Sample Post</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./contact">Contact</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./posts/new">New Post</a></li>
+                
                 <% if(loggedIn === false) { %>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./register">Create Account</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./login">Login</a></li>
                 <% }else{ %>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./posts/new">New Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./posts">My Posts</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./account">My Account</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="./logout">Logout</a></li>
                 <% } %>
             </ul>

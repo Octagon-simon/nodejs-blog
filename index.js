@@ -20,8 +20,14 @@ app.use(express.json())
 app.use('/assets', express.static('./assets'));
 //register the package in express
 app.use(fileUpload())
-//register custom validate middleware for the posts/new request
-app.use( '/posts/new', require('./middlewares/validateMiddleWare'))
+
+//register octavalidate middleware for the posts/new request
+app.use( '/posts/new', require('./middlewares/newPostValidateMiddleWare'))
+//register octavalidate middleware for the posts/new request
+app.use( '/login', require('./middlewares/loginValidateMiddleWare'))
+//register octavalidate middleware for the posts/new request
+app.use( '/register', require('./middlewares/registerValidateMiddleWare'))
+
 //register session in express
 app.use(session({
     secret : 'First Nodejs Project',
@@ -114,6 +120,20 @@ app.get('/post/:title', require('./controllers/singlePost'))
 app.post('/register', require('./controllers/userRegister'))
 //store new post
 app.post('/posts/new',  require('./controllers/newPost'))
+//get user posts
+app.get('/posts', async(req, res) => {
+    //check if user is logged in
+    if(!req.session || !req.session.userId)
+        return res.redirect('/login')
+    
+    const posts = await Post.find({
+        userId : req.session.userId
+    })
+
+    return res.render('posts', {
+        posts
+    })
+})
 //user login
 app.post('/login', require('./controllers/userLogin'))
 //user logout

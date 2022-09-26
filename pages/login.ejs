@@ -5,6 +5,10 @@
     <%- include('./layouts/head') %>
 
         <style>
+            body {
+                background-color: #e8f8ff;
+            }
+
             .user-cont {
                 position: absolute;
                 left: 50%;
@@ -17,8 +21,10 @@
                 background-color: #fff;
                 padding: 20px;
                 box-shadow: 0 0 8px #ddd;
+                border-radius: 20px;
             }
-            .new-user{
+
+            .new-user {
                 font-size: 1rem;
                 color: var(--app-primary);
             }
@@ -27,27 +33,31 @@
 
 <body>
     <main class="mb-4">
-    <div class="container user-cont">
-        <section class="user-section">
-            <form method="post" action="/login" id="form_login" novalidate>
-                <h4 class="title is-4 mb-4 mt-2 text-center">LOGIN</h4>
-                <div class="form-group">
-                    <label class="form-label">Email address</label>
-                    <input id="inp_email" placeholder="Enter your email" octavalidate="R,EMAIL" class="form-control"
-                        name="email" type="email">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input id="inp_pass" placeholder="Enter a password" octavalidate="R" class="form-control"
-                        type="password" name="pass">
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                </div>
-                <a href="/register" class="d-block new-user">Don't have an Account? Click here to create one</a>
-            </form>
-        </section>
-    </div>
+        <div class="container user-cont">
+            <section class="user-section">
+                <form method="post" action="/login" id="form_login" novalidate>
+                    <h4 class="title is-4 mb-4 mt-2 text-center">LOGIN</h4>
+                    <div class="form-group">
+                        <label class="form-label">Email address</label>
+                        <input id="inp_email" placeholder="Enter your email" octavalidate="R,EMAIL" class="form-control"
+                            name="email" type="email"
+                            value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['email']){ %><%- JSON.parse(formData)['email'] %><% } %>">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input id="inp_pass" placeholder="Enter a password" octavalidate="R" class="form-control"
+                            type="password" name="pass"
+                            value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['pass']){%><%- JSON.parse(formData)['pass'] %><% } %>">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn w-100 btn-primary btn-rounded btn-md">Login</button>
+                    </div>
+                    <hr> 
+                    <h5 class="text-center title is-5 mb-4">Don't have an account?</h5>
+                    <a href="/register" class="d-block text-center new-user">Click here to create one</a>
+                </form>
+            </section>
+        </div>
     </main>
     <%- include('./layouts/scripts'); %>
 </body>
@@ -81,11 +91,18 @@
                     console.error(err)
                 })
             */
-            }else{
+            } else {
                 e.currentTarget.submit()
             }
         })
     })
 </script>
+<% if(typeof validationErrors !=="undefined" ){ %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            myForm.showBackendErrors(<% - validationErrors %>)
+        })
+    </script>
+    <% } %>
 
 </html>
