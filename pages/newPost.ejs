@@ -35,7 +35,7 @@
                                     <label for="inp_post_title">Title</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input class="form-control" octavalidate="TEXT" id="inp_post_subtitle" type="text" placeholder="Enter Post subtitle" name="subtitle" value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['subtitle']){%><%- JSON.parse(formData)['subtitle'] %><% } %>" />
+                                    <input class="form-control" octavalidate="R,TEXT" id="inp_post_subtitle" type="text" placeholder="Enter Post subtitle" name="subtitle" value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['subtitle']){%><%- JSON.parse(formData)['subtitle'] %><% } %>" />
                                     <label for="inp_post_subtitle">Sub Title</label>
                                 </div>
                                 <div class="form-floating">
@@ -73,9 +73,9 @@
             })
         })
     </script>
-    <% if(typeof validationErrors !== "undefined"){ %>
+    <% if(typeof formErrors !== "undefined"){ %>
         <script>
-            myForm.showBackendErrors(<%- validationErrors %>)
+            myForm.showBackendErrors(<%- formErrors %>)
         </script>
     <% } %>
 </html>

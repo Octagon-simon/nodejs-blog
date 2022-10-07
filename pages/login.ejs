@@ -97,10 +97,10 @@
         })
     })
 </script>
-<% if(typeof validationErrors !=="undefined" ){ %>
+<% if(typeof formErrors !=="undefined" ){ %>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            myForm.showBackendErrors(<% - validationErrors %>)
+            myForm.showBackendErrors(<% - formErrors %>)
         })
     </script>
     <% } %>

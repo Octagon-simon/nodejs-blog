@@ -24,17 +24,25 @@ const FieldRules = {
 }
 
 module.exports = (req, res, next) => {
-    //check if request method is POST
-    if (req.method == "POST") {
-        if (! (validate.validateFields(req.body, FieldRules)) ) {
-            return res.render('register', 
-            { 
-                success: false, 
-                message: "Form validation failed", 
-                validationErrors : JSON.stringify(validate.getErrors()),
-                formData : JSON.stringify(req.body) 
-            })
+    try{
+        //check if request method is POST
+        if (req.method == "POST") {
+            if (! (validate.validateFields(FieldRules)) ) {
+                return res.render('register', 
+                { 
+                    success: false, 
+                    message: "Form validation failed", 
+                    formErrors : JSON.stringify(validate.getErrors()),
+                    formData : JSON.stringify(req.body) 
+                })
+            }
         }
+    }catch(err){
+        console.log(err)
+        return res.status(500).render('login', {
+            success : false,
+            message : "A server error has occured"
+        })
     }
     next()
 }

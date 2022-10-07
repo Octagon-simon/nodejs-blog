@@ -89,9 +89,9 @@
     })
 
 </script>
-<% if(typeof validationErrors !=="undefined" ){ %>
+<% if(typeof formErrors !=="undefined" ){ %>
     <script>
-        myForm.showBackendErrors(<%- validationErrors %>)
+        myForm.showBackendErrors(<%- formErrors %>)
     </script>
     <% } %>
 
