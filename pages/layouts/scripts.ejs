@@ -3,7 +3,7 @@
 <!-- Core theme JS-->
 <script src="./assets/js/scripts.js"></script>
 <!-- show message to user-->
-<% if(typeof success !== "undefined"){ %>
+<% if(typeof success !== "undefined" && typeof message !== "undefined"){ %>
     <%  if(success) { %>
         <script>
             document.addEventListener('DOMContentLoaded', () => {

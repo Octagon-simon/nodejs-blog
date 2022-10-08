@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
     try{
         //check if request method is POST
         if (req.method == "POST") {
-            if (! (validate.validateFields(FieldRules)) ) {
+            if (! (validate.validateFields(FieldRules, req.body)) ) {
                 return res.render('register', 
                 { 
                     success: false, 

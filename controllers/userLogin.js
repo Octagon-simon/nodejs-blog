@@ -21,7 +21,11 @@ module.exports = (req, res) => {
                     //set user id as session value
                     req.session.userId = user._id;
                     req.session.loggedInData = JSON.stringify({success : true, message : "Login successful", loggedInTime : new Date().getTime()})
+                    //check if we should automatically redirect to a page or go to home page
                     
+                    if(redirect){
+                        return res.redirect(redirect)
+                    }
                     return res.redirect('/')
                     /*
                     return res.status(200).json({

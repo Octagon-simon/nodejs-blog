@@ -8,6 +8,7 @@ const User = require('./models/userModel')
 const multer = require('multer')
 const fileUpload = require('express-fileupload')
 const database = require('./utils/database')
+const { resourceLimits } = require('worker_threads')
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -18,29 +19,34 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 //load static files
 app.use('/assets', express.static('./assets'));
+//load static files
+app.use('/uploads', express.static('./uploads'));
 //register the package in express
 app.use(fileUpload())
 
 //register octavalidate middleware for the posts/new request
-app.use( '/posts/new', require('./middlewares/newPostValidateMiddleWare'))
+app.use('/posts/new', require('./middlewares/newPostValidateMiddleWare'))
 //register octavalidate middleware for the posts/new request
-app.use( '/login', require('./middlewares/loginValidateMiddleWare'))
+app.use('/login', require('./middlewares/loginValidateMiddleWare'))
 //register octavalidate middleware for the posts/new request
-app.use( '/register', require('./middlewares/registerValidateMiddleWare'))
+app.use('/register', require('./middlewares/registerValidateMiddleWare'))
 
 //register session in express
 app.use(session({
-    secret : 'First Nodejs Project',
-    resave : true,
-    saveUninitialized : true
+    secret: 'First Nodejs Project',
+    resave: true,
+    saveUninitialized: true
 }))
 //set userid if user is logged in or not
 global.loggedIn = false;
+//automatically redirect to a page when redirection is needed
+global.redirect = '';
 //send loggedIn var to all pages
 app.use("*", (req, res, next) => {
-    if(req.session && req.session.userId)
+    if (req.session && req.session.userId)
         loggedIn = true;
-
+    if (req.query?.next)
+        redirect = req.query?.next
     next();
 })
 
@@ -70,25 +76,25 @@ app.get('/', async (req, res) => {
     //res.sendFile(path.resolve(__dirname + '/pages/index.html'))
     const posts = await Post.find({})
     let output = []
-    await Promise.all(posts.map( async (item) => {
-        const user  = await User.findOne({_id:item.userId})
+    await Promise.all(posts.map(async (item) => {
+        const user = await User.findOne({ _id: item.userId })
         output.push({
             title: item.title,
-            subtitle : item.subtitle,
+            subtitle: item.subtitle,
             content: item.content,
-            datePosted : item.datePosted,
-            username : user?.username,
-            cover : item.cover
+            datePosted: item.datePosted,
+            username: user?.username,
+            cover: item.cover
         })
     }))
     let loggedInData = undefined
 
-    if(req.session && req.session.loggedInData) {
+    if (req.session && req.session.loggedInData) {
         loggedInData = JSON.parse(req.session.loggedInData)
         delete req.session.loggedInData
-    } 
-    
-    return res.render('index', { posts : output, loggedInData })
+    }
+
+    return res.render('index', { posts: output, loggedInData })
 })
 //load about page
 app.get('/about', (req, res) => {
@@ -119,15 +125,15 @@ app.get('/post/:title', require('./controllers/singlePost'))
 //user registration
 app.post('/register', require('./controllers/userRegister'))
 //store new post
-app.post('/posts/new',  require('./controllers/newPost'))
+app.post('/posts/new', require('./controllers/newPost'))
 //get user posts
-app.get('/posts', async(req, res) => {
+app.get('/posts', async (req, res) => {
     //check if user is logged in
-    if(!req.session || !req.session.userId)
+    if (!req.session || !req.session.userId)
         return res.redirect('/login')
-    
+
     const posts = await Post.find({
-        userId : req.session.userId
+        userId: req.session.userId
     })
 
     return res.render('posts', {
@@ -139,12 +145,16 @@ app.post('/login', require('./controllers/userLogin'))
 //user logout
 app.get('/logout', (req, res) => {
     //destroy session
-    req.session.destroy( () => {
+    req.session.destroy(() => {
         //reset global var
         loggedIn = false
         return res.redirect('/')
     })
 })
+//user account - get
+app.use('/account', require('./middlewares/updateAccount'), require('./controllers/updateAccount'))
+
+app.get('/search', require('./controllers/search'))
 //register 404 page
 //must be the last stuff
 app.use((req, res) => {

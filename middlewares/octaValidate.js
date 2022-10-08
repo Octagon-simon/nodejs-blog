@@ -450,7 +450,7 @@ class octaValidate {
                     const errorMsg = valRules[fieldName]['EQUALTO'][1]
                     //check if field value is empty
                     if (fieldValue && reqBody[toCompare] !== fieldValue) {
-                        this.#addError(`${fieldName + ':' + toCompare}`, errorMsg)
+                        this.#addError(`${fieldName}:${toCompare}`, errorMsg)
                         break;
                     }
                 }

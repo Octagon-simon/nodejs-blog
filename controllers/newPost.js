@@ -1,12 +1,6 @@
 //import blog post model
 const Post = require('../models/postModel')
 const path = require('path')
-const octaValidate = require('../middlewares/octaValidate')
-
-const validate = new octaValidate("form_new_post", {
-    strictMode: true,
-    strictWords: ["admin", "user", "test"]
-})
 
 module.exports = (req, res) => {
     //check if session exists

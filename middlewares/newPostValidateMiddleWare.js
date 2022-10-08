@@ -28,8 +28,8 @@ module.exports = (req, res, next) => {
     try {
         //check if request method is POST
         if (req.method == "POST") {
-            const fieldVal = validate.validateFields(FieldRules)
-            const fileVal = validate.validateFiles(FileRules)
+            const fieldVal = validate.validateFields(FieldRules, req.body)
+            const fileVal = validate.validateFiles(FileRules, req.files)
             if (!(fieldVal && fileVal)) {
                 return res.render('newPost',
                     {

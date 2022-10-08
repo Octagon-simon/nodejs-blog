@@ -6,7 +6,8 @@ const UserSchema = new mongoose.Schema({
     username: {type: String,  unique: true, required : true},
     email: {type: String, unique: true, required : true},
     hash: {type: String, required : true},
-    salt: {type : String, required : true}
+    salt: {type : String, required : true},
+    profile: {type: String}
 })
 //how to know you're inserting to a particular collection
 //create a full fledge user auth system with nodejs part 1 with password hashing
@@ -16,6 +17,7 @@ UserSchema.methods.hashPassword = function(password){
     this.salt = crypto.randomBytes(16).toString('hex')
 
     //hash the user's salt and password with 1000 iterations
+    //this.hash
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex')
 }
 
