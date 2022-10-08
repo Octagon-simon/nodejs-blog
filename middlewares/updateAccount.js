@@ -32,7 +32,6 @@ module.exports = async(req, res, next) => {
                     {
                         success: false,
                         message: "Form validation failed",
-                        base: "../",
                         formErrors: JSON.stringify(validate.getErrors()),
                         formData: JSON.stringify({uname : req.body.uname, pass : req.body.pass})
                     })

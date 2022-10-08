@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+const fs = require('fs')
 const path = require('path')
 //fake filler
 module.exports = async (req, res) => {
@@ -53,18 +54,41 @@ module.exports = async (req, res) => {
     } else {
 
         try {
-            const user = await User.findById({
-                _id: req.session.userId
-            })
-
-            return res.status(200).render('account', {
-                success: true,
-                user: {
-                    username: user.username,
-                    profile: user?.profile,
-                    email: user.email
+            if (req.query?.action && req.session && req.session.userId) {
+                //user has requested to delete his account. anything like &nonce=flabagaska
+                if (req.query.action == "delete-account") {
+                    //get user
+                    const user = await User.findById(req.session.userId)
+                    if (!user)
+                        res.redirect('/logout')
+                    //remove profile photo
+                    if (user.profile)
+                        fs.unlink(path.resolve(__dirname, '../uploads', user.profile), (err) => {
+                            if(err)
+                                throw new Error(err)
+                            console.log('Profile photo of the Cutomer to terminate has been deleted')
+                        })
+                    //delete account
+                    await User.findByIdAndDelete(user._id)
+                    //log the user out
+                    return res.redirect('/logout')
                 }
-            })
+
+            } else {
+                const user = await User.findById({
+                    _id: req.session.userId
+                })
+
+                return res.status(200).render('account', {
+                    success: true,
+                    user: {
+                        username: user.username,
+                        profile: user.profile || undefined,
+                        email: user.email
+                    }
+                })
+            }
+
         } catch (err) {
             console.log(err)
             return res.status(500).render('account', {

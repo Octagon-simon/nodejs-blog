@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
             content : post.content,
             datePosted : post.datePosted,
             cover : post.cover,
-            username : user?.username
+            username : user?.username || '[Deleted Account]'
         }
         
         return res.render('singlePost', { post : data, base : "../" })

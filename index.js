@@ -8,7 +8,6 @@ const User = require('./models/userModel')
 const multer = require('multer')
 const fileUpload = require('express-fileupload')
 const database = require('./utils/database')
-const { resourceLimits } = require('worker_threads')
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -23,13 +22,6 @@ app.use('/assets', express.static('./assets'));
 app.use('/uploads', express.static('./uploads'));
 //register the package in express
 app.use(fileUpload())
-
-//register octavalidate middleware for the posts/new request
-app.use('/posts/new', require('./middlewares/newPostValidateMiddleWare'))
-//register octavalidate middleware for the posts/new request
-app.use('/login', require('./middlewares/loginValidateMiddleWare'))
-//register octavalidate middleware for the posts/new request
-app.use('/register', require('./middlewares/registerValidateMiddleWare'))
 
 //register session in express
 app.use(session({
@@ -83,7 +75,7 @@ app.get('/', async (req, res) => {
             subtitle: item.subtitle,
             content: item.content,
             datePosted: item.datePosted,
-            username: user?.username,
+            username: user?.username || '[Deleted Account]',
             cover: item.cover
         })
     }))
@@ -112,20 +104,17 @@ app.get('/sample-post', (req, res) => {
     res.render('samplePost')
 })
 //load registration page
-app.get('/register', require('./controllers/userRegister'))
+app.use('/register', require('./middlewares/userRegister'), require('./controllers/userRegister'))
 //load login page
-app.get('/login', require('./controllers/userLogin'))
-//load new post page
-app.get('/posts/new', require('./controllers/newPost'))
+app.use('/login',  require('./middlewares/userLogin'), require('./controllers/userLogin'))
+//store new post
+app.use('/posts/new', require('./middlewares/newPost'), require('./controllers/newPost'))
+
 //search for a post using the title
 app.get('/search', require('./controllers/search'))
 //get a single post
 app.get('/post/:title', require('./controllers/singlePost'))
 
-//user registration
-app.post('/register', require('./controllers/userRegister'))
-//store new post
-app.post('/posts/new', require('./controllers/newPost'))
 //get user posts
 app.get('/posts', async (req, res) => {
     //check if user is logged in
@@ -140,8 +129,7 @@ app.get('/posts', async (req, res) => {
         posts
     })
 })
-//user login
-app.post('/login', require('./controllers/userLogin'))
+
 //user logout
 app.get('/logout', (req, res) => {
     //destroy session
@@ -151,8 +139,11 @@ app.get('/logout', (req, res) => {
         return res.redirect('/')
     })
 })
-//user account - get
+
+//user account
 app.use('/account', require('./middlewares/updateAccount'), require('./controllers/updateAccount'))
+//reset password
+//app.use('/reset', require('./middlewares/resetPass'), require('./controllers/resetPass'))
 
 app.get('/search', require('./controllers/search'))
 //register 404 page
