@@ -65,6 +65,18 @@ module.exports = (req, res) => {
         })
     }
     }else{
-        res.render('login')
+        //check if login isredirected after a password reset
+        if(req.query && req.query?.success && req.session?.resetPass){
+            //remove query 
+            delete req.query.success
+            //remove reset pass object from session
+            delete req.session.resetPass
+
+            return res.render('login', {
+                success: true,
+                message: "password reset is successful"
+            })
+        }
+        return res.render('login')
     }
 }

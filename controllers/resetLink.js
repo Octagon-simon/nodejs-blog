@@ -15,7 +15,7 @@ module.exports = async(req, res) => {
                 //i should  a mail
                 return res.status(200).json({
                     success: true,
-                    link : `http:/localhost:${port}/reset?email=${user.email}&id=${resetLink}`
+                    link : `http://localhost:${port}/reset?email=${user.email}&id=${resetLink}`
                 })
             }else{  
                 return res.status(400).json({

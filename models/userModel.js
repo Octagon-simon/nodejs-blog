@@ -35,11 +35,11 @@ UserSchema.methods.passwordResetHash = function(toHash){
 }
 
 //check generated password reset hash
-UserSchema.methods.checkpasswordResetHash = function(toHash){
+UserSchema.methods.checkpasswordResetHash = function(toHash, toCheck){
     //create hash object,pass in data to be hashed and return hash
     const hash = crypto.createHash('sha512').update(toHash).digest('hex')
 
-    return this.passwordResetHash === hash;
+    return hash === toCheck;
 }
 //store in Users collection
 //if collection does not exist it will create it for you
