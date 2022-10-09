@@ -15,7 +15,15 @@ module.exports = (req, res, next) => {
     try {
         //check if request method is POST
         if (req.method == "POST") {
-            return
+            if (!validate.validateFields(FieldRules, req.body)) {
+                return res.render('reset',
+                    {
+                        success: false,
+                        message: "Form validation failed",
+                        formErrors: JSON.stringify(validate.getErrors()),
+                        formData: JSON.stringify(req.body)
+                    })
+            }
         }
     } catch (err) {
         console.log(err)

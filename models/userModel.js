@@ -26,6 +26,21 @@ UserSchema.methods.checkPassword = function(password){
     
     return this.hash === hash;
 }
+//generate password reset hash
+UserSchema.methods.passwordResetHash = function(toHash){
+    //create hash object,pass in data to be hashed and return hash
+    const hash = crypto.createHash('sha512').update(toHash).digest('hex')
+
+    return this.passwordResetHash = hash;
+}
+
+//check generated password reset hash
+UserSchema.methods.checkpasswordResetHash = function(toHash){
+    //create hash object,pass in data to be hashed and return hash
+    const hash = crypto.createHash('sha512').update(toHash).digest('hex')
+
+    return this.passwordResetHash === hash;
+}
 //store in Users collection
 //if collection does not exist it will create it for you
 const User = mongoose.model("User", UserSchema, 'Users')

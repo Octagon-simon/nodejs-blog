@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./layouts/head') %>
+
+        <style>
+            body {
+                background-color: #e8f8ff;
+            }
+
+            .user-cont {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 500px;
+            }
+
+            .user-section {
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 8px #ddd;
+                border-radius: 20px;
+            }
+
+            .new-user, .reset-pass {
+                font-size: 1rem;
+                color: var(--app-primary);
+            }
+        </style>
+</head>
+
+<body>
+    <main class="mb-4">
+        <div class="container user-cont">
+            <section class="user-section">
+                <form method="post" action="/reset-link" id="form_reset_link" novalidate>
+                    <h4 class="title is-4 mb-4 mt-2 text-center">Reset your password</h4>
+                    <div class="form-group">
+                        <label class="form-label">Email address</label>
+                        <input id="inp_email" placeholder="Enter your email" octavalidate="R,EMAIL" class="form-control"
+                            name="email" type="email"
+                            value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['email']){ %><%- JSON.parse(formData)['email'] %><% } %>">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn w-100 btn-primary btn-rounded btn-md">Send Reset Link</button>
+                    </div>
+                    <hr> 
+                    <h5 class="text-center title is-5 mb-4">Just remembered your password?</h5>
+                    <a href="/login" class="d-block text-center new-user">Click here to login</a>
+                </form>
+            </section>
+        </div>
+    </main>
+    <%- include('./layouts/scripts'); %>
+</body>
+
+<script>
+    //create new instance of the function
+    const myForm = new octaValidate('form_reset_link', {
+        strictMode: true,
+        strictWords: ["admin", "null", "undefined"]
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('#form_reset_link').addEventListener('submit', function (e) {
+            if (!myForm.validate()) {
+                e.preventDefault();
+            } else {
+                e.currentTarget.submit()
+            }
+        })
+    })
+</script>
+<% if(typeof formErrors !=="undefined" ){ %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            myForm.showBackendErrors(<% - formErrors %>)
+        })
+    </script>
+    <% } %>
+
+</html>

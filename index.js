@@ -10,7 +10,7 @@ const fileUpload = require('express-fileupload')
 const database = require('./utils/database')
 
 const app = express()
-const port = process.env.PORT || 5000
+global.port = process.env.PORT || 5000
 
 //parse url encoded bodies (as sent by html forms)
 app.use(express.urlencoded({ extended: true }))
@@ -109,6 +109,10 @@ app.use('/register', require('./middlewares/userRegister'), require('./controlle
 app.use('/login',  require('./middlewares/userLogin'), require('./controllers/userLogin'))
 //store new post
 app.use('/posts/new', require('./middlewares/newPost'), require('./controllers/newPost'))
+//reset password
+app.use('/reset', require('./middlewares/resetPass'), require('./controllers/resetPass'))
+
+app.post('/reset-link', require('./middlewares/resetLink'), require('./controllers/resetLink'))
 
 //search for a post using the title
 app.get('/search', require('./controllers/search'))
