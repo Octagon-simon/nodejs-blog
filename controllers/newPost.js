@@ -4,9 +4,16 @@ const path = require('path')
 
 module.exports = (req, res) => {
     //check if session exists
-    if (!req.session || !req.session.userId)
+    if (!req.session || !req.session.userId){
+        //redirect to
+        let next = 'posts/new'
+        //check if query exists in the URL
+        if(req.query?.title){
+            next+=`?title=${req.query.title}`
+        }
         //redirect to login page if no session exists
-        return res.redirect('/login')
+        return res.redirect(`../login?next=${next}`)
+    }
 
     if (req.method == "POST") {
 
@@ -28,9 +35,9 @@ module.exports = (req, res) => {
                     //assign userId field to model
                     newPost['userId'] = req.session.userId;
                     //move uploaded image to specified path
-                    coverImage.mv(path.resolve(__dirname, '../assets/img', coverImage.name), async (err) => {
+                    coverImage.mv(path.resolve(__dirname, '../uploads/cover_images', coverImage.name), async (err) => {
                         //add cover parameter to the new Post Object
-                        newPost['cover'] = `/assets/img/${coverImage.name}`
+                        newPost['cover'] = coverImage.name
                         //store to db
                         newPost.save().then(savedDoc => {
                             if (savedDoc === newPost) {
@@ -55,6 +62,12 @@ module.exports = (req, res) => {
             })
         }
     } else {
-        return res.render('newPost', { base: "../" })
+        const data = {
+            base : "../"
+        }
+        if(req.query?.title){
+            data.formData = JSON.stringify({ title : req.query.title})
+        }
+        return res.render('newPost', data)
     }
 }

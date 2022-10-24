@@ -49,11 +49,11 @@ This file only renders when the URL contains a correct password reset link
                         <input id="inp_email" placeholder="Enter your email" class="form-control" disabled type="email" value="<% if(typeof formData !== 'undefined' && JSON.parse(formData)['email']){ %><%- JSON.parse(formData)['email'] %><% } %>">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">New Password</label>
+                        <label class="form-label">New password</label>
                         <input id="inp_pass" placeholder="Enter a new password" octavalidate="R" class="form-control" type="password" name="pass">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Re-enter Password</label>
+                        <label class="form-label">Re-enter password</label>
                         <input id="inp_conpass" placeholder="Re-enter password" class="form-control" name="conpass" type="password" equalto="inp_pass">
                     </div>
                     <div class="mb-3">
@@ -88,6 +88,7 @@ This file only renders when the URL contains a correct password reset link
 <% if(typeof formErrors !=="undefined" ){ %>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            //check various ways to display this formErrors object
             myForm.showBackendErrors(<%- formErrors %>)
         })
     </script>

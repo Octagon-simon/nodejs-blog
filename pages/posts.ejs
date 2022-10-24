@@ -5,6 +5,18 @@
         .light-shadow {
             box-shadow: 0px 0px 8px #ddd;
         }
+
+        .edit-btn {
+            padding: 10px;
+            background-color: #0085a14a;
+            border-radius: 5px;
+        }
+
+        .del-btn {
+            padding: 10px;
+            background-color: #dc35454a;
+            border-radius: 5px;
+        }
     </style>
 
     <body>
@@ -17,7 +29,7 @@
                         <div class="col-md-10 col-lg-8 col-xl-7">
                             <div class="site-heading">
                                 <h1>MY POSTS</h1>
-                                <span class="subheading">Here's a list of posts that I've created</span>
+                                <span class="subheading">Here's a list of posts that you've created</span>
                             </div>
                         </div>
                     </div>
@@ -27,7 +39,7 @@
             <div class="container light-shadow p-4 px-lg-5 mb-5">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form id="form_search" method="get" action="/search">
+                        <form id="form_search" method="get" action="/posts/search">
                             <h3 class="mb-3"> Search for a Post</h3>
                             <div class="input-group align-self-center" style="height: 50px;">
                                 <input type="text" placeholder="Enter a post title to begin search" aria-label="Search"
@@ -47,7 +59,7 @@
             <div class="container light-shadow p-4 px-lg-5 mb-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-sm-12">
-                        <% if(posts.length !==0){ %>
+                        <% if(posts.length !== 0){ %>
                             <% for(let i=0; i < posts.length; i++){ %>
                                 <!-- Post preview-->
                                 <div class="post-preview">
@@ -59,14 +71,25 @@
                                             <%= posts[i].content %>
                                         </h3>
                                     </a>
-                                    <p class="post-meta">
-                                        Posted on <%= new Date(posts[i].datePosted).toDateString() %>
-                                    </p>
+                                    <section class="row">
+                                        <div class="col-6">
+                                            <p class="post-meta m-0">
+                                                Posted on <%= new Date(posts[i].datePosted).toDateString() %>
+                                            </p>
+                                        </div>
+                                        <div class="col-6 text-end align-self-center">
+                                            <a href="./post/edit?id=<%= posts[i].title%>" class="me-3 edit-btn" title="Edit this Post"><i
+                                                    class="fa fa-pen text-primary"></i></a>
+                                            <a href="/post/delete?id=<%= posts[i].id%>" title="Delete this Post" class="del-btn"><i
+                                                    class="fa fa-trash text-danger"></i></a>
+                                        </div>
+                                    </section>
                                 </div>
                                 <% } %>
                                     <% }else{ %>
                                         <div class="alert alert-danger mt-5 mb-5">
-                                            <p class="m-0 text-center" style="font-size:1rem">No posts found! Would you like to <a href="/posts/new">create one?</a></p>
+                                            <p class="m-0 text-center" style="font-size:1rem">We couldn't find a post with this title <span><%= title %></span>!<br>Would you
+                                                like to <a href="/posts/new?title=<%-title%>">create one?</a></p>
                                         </div>
                                         <% } %>
                                             <!-- Divider-->

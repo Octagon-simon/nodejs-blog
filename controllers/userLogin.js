@@ -74,7 +74,7 @@ module.exports = (req, res) => {
 
             return res.render('login', {
                 success: true,
-                message: "password reset is successful"
+                message: "Your password has been updated"
             })
         }
         return res.render('login')

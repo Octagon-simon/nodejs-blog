@@ -1,5 +1,7 @@
 const express = require('express')
 const ejs = require('ejs')
+const fs = require('fs')
+const path = require('path')
 const session = require('express-session')
 //import blog post model
 const Post = require('./models/postModel')
@@ -116,8 +118,12 @@ app.post('/reset-link', require('./middlewares/resetLink'), require('./controlle
 
 //search for a post using the title
 app.get('/search', require('./controllers/search'))
+
+//delete a single post require('./controllers/deletePost')
+app.get('/post/delete/', require('./controllers/deletePost'))
+
 //get a single post
-app.get('/post/:title', require('./controllers/singlePost'))
+app.get('/post/:title/', require('./controllers/singlePost'))
 
 //get user posts
 app.get('/posts', async (req, res) => {
@@ -128,10 +134,46 @@ app.get('/posts', async (req, res) => {
     const posts = await Post.find({
         userId: req.session.userId
     })
-
+    //check if there is a data for this page in the session
+    const sessionData = req.session?.postsPage
+    //delete if there was a data
+    if(sessionData) delete req.session.postsPage
     return res.render('posts', {
-        posts
+        posts, 
+        sessionData
     })
+})
+
+//serch for users posts
+app.get('/posts/search', async (req, res) => {
+    try {
+        //check if user is logged in
+        if(!req.session?.userId) return res.redirect('../login?next=posts')
+        //get posts created by the user
+        const posts = await Post.find({
+            title: new RegExp(req.query.title, 'i'),
+            userId : req.session.userId
+        })
+
+        const user = await User.findById(req.session.userId)
+
+        const output = []
+
+        posts.map(item => {
+            //store output
+            output.push({
+                title : item.title,
+                content : item.content,
+                datePosted : item.datePosted,
+                username : user?.username
+            })
+        })
+
+        return res.render('posts', { posts : output, base : "../", title : req.query.title || ''})
+
+    } catch (err) {
+        console.error(err)
+    }
 })
 
 //user logout

@@ -1,3 +1,6 @@
-.git,
-.gitignore,
+.git
+.gitignore
 node_modules
+assets/img/*
+assets/webfonts/*
+assets/css/all.min.css

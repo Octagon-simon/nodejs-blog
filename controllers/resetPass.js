@@ -16,10 +16,10 @@ module.exports = async (req, res) => {
             //check if user exists
             if (user) {
                 //create a new user object and generate hash
-                const updateUser = new User()
+                const updateUser = new User(user)
 
                 //check if hash is correct
-                if (!updateUser.checkpasswordResetHash(user.email + user.hash, req.session.resetPass.id))
+                if (!updateUser.verifyPasswordResetHash(req.session.resetPass.hash))
                     return res.redirect('reset')
 
                 //hash password
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
                     hash: updateUser.hash,
                     salt: updateUser.salt
                 })
-                //i should  a mail too
+                //i should send a mail too
                 return res.status(200).redirect('login?success=true')
             } else {
                 return res.status(400).render('reset', {
@@ -48,17 +48,17 @@ module.exports = async (req, res) => {
     } else {
         try {
             //check if to display password reset fields
-            if (req?.query && req.query.email && req.query.id) {
+            if (req?.query && req.query.email && req.query.hash) {
                 //check if link is valid or not
                 const user = await User.findOne({ email: req.query.email })
                 //check if user exists    
                 if (user) {
                     //verify id which is the hash
-                    if (user.checkpasswordResetHash(user.email + user.hash, req.query.id)) {
+                    if (user.verifyPasswordResetHash(req.query.hash)) {
                         //store password reset data in session for post request
-                        req.session.resetPass = { email: user.email, id: req.query.id }
+                        req.session.resetPass = { email: user.email, hash: req.query.hash }
                         //display pasword reset form
-                        return res.render('resetForm', {
+                        return res.render('newPassForm', {
                             success: true,
                             message: "Please reset your password",
                             formData: JSON.stringify({ email: user.email })
@@ -81,6 +81,7 @@ module.exports = async (req, res) => {
             }
 
         } catch (err) {
+            console.log(err);
             return res.status(500).render('reset', {
                 success: false,
                 message: "A server error has occured"

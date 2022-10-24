@@ -23,28 +23,24 @@ UserSchema.methods.hashPassword = function(password){
 
 UserSchema.methods.checkPassword = function(password){
     const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex')
-    
     return this.hash === hash;
 }
-//generate password reset hash
-UserSchema.methods.passwordResetHash = function(toHash){
-    //create hash object,pass in data to be hashed and return hash
-    const hash = crypto.createHash('sha512').update(toHash).digest('hex')
 
-    return this.passwordResetHash = hash;
+//generate password reset hash
+UserSchema.methods.generatePasswordResetHash = function(){
+    //create hash object,pass in data to be hashed and return hash
+    const hash = crypto.createHash('sha512').update(this.hash).digest('hex')
+    return hash;
 }
 
 //check generated password reset hash
-UserSchema.methods.checkpasswordResetHash = function(toHash, toCheck){
-    //create hash object,pass in data to be hashed and return hash
-    const hash = crypto.createHash('sha512').update(toHash).digest('hex')
-
-    return hash === toCheck;
+UserSchema.methods.verifyPasswordResetHash = function(toCheck){
+    return this.generatePasswordResetHash() === toCheck;
 }
+
 //store in Users collection
 //if collection does not exist it will create it for you
 const User = mongoose.model("User", UserSchema, 'Users')
 
 //console.log(User);
-
 module.exports = User;

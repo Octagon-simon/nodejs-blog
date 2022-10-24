@@ -70,7 +70,8 @@
                                 <% } %>
                                     <% }else{ %>
                                         <div class="alert alert-danger mt-5 mb-5">
-                                            <p class="m-0 text-center" style="font-size:1rem">No posts found! Would you like to <a href="/posts/new">create one?</a></p>
+                                            <p class="m-0 text-center" style="font-size:1rem">We couldn't find a post with this title <span><%= title %></span><br>Would you
+                                                like to <a href="/posts/new?title=<%-title%>">create one?</a></p>
                                         </div>
                                         <% } %>
                                             <!-- Divider-->

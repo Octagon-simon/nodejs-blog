@@ -5,6 +5,8 @@ const User = require('../models/userModel')
 
 module.exports = async (req, res) => {
     try {
+        
+        console.log(req.headers.referer)
         let data = {}
         const post = await Post.findOne({
             title: req.params.title.split('-').join(' ')
@@ -16,10 +18,11 @@ module.exports = async (req, res) => {
             subtitle : post.subtitle,
             content : post.content,
             datePosted : post.datePosted,
-            cover : post.cover,
+            cover : `/uploads/cover_images/${post.cover}`,
             username : user?.username || '[Deleted Account]'
         }
         
+        //check if a message for this page is stored in the session
         return res.render('singlePost', { post : data, base : "../" })
 
     } catch (err) {

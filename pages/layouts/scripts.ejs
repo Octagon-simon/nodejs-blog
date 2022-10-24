@@ -18,5 +18,23 @@
             </script>
     <%   } %>
 <% } %>
+
+<!-- show message to user from session-->
+<% if(typeof sessionData !== "undefined" && typeof sessionData.success !== "undefined" && typeof sessionData.message !== "undefined"){ %>
+    <%  if(sessionData.success) { %>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                toastr.success('<%= sessionData.message %>')
+            })
+        </script>
+        <%   }else{ %>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    toastr.error('<%= sessionData.message %>')
+                })
+            </script>
+    <%   } %>
+<% } %>
+
 <!-- toastr -->
 <script src="assets/toastr/toastr.min.js"></script>

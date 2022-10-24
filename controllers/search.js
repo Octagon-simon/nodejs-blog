@@ -19,11 +19,11 @@ module.exports = async (req, res) => {
                 title : item.title,
                 content : item.content,
                 datePosted : item.datePosted,
-                username : user?.username
+                username : user?.username || '[Deleted Account]'
             })
         }))
 
-        return res.render('index', { posts : output, base : "../"})
+        return res.render('index', { posts : output, base : "../", title : req.query.title || ''})
 
     } catch (err) {
         console.error(err)

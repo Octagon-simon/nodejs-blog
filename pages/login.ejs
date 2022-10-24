@@ -101,7 +101,7 @@
 <% if(typeof formErrors !=="undefined" ){ %>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            myForm.showBackendErrors(<% - formErrors %>)
+            myForm.showBackendErrors(JSON.parse('<%- formErrors %>'))
         })
     </script>
     <% } %>

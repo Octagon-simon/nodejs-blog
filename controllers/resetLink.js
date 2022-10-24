@@ -1,4 +1,5 @@
 const User = require('../models/userModel')
+
 module.exports = async(req, res) => {
     //redirect userstohomepage if they are loggedin
     if(req.session && req.session.userId)
@@ -11,11 +12,11 @@ module.exports = async(req, res) => {
             //check if user exists
             if(user){
                 //create a new user object and generate hash
-                const resetLink = new User().passwordResetHash(user.email+user.hash)
-                //i should  a mail
+                const resetLink = new User(user).generatePasswordResetHash()
+                //i should send a mail
                 return res.status(200).json({
                     success: true,
-                    link : `http://localhost:${port}/reset?email=${user.email}&id=${resetLink}`
+                    link : `http://localhost:${port}/reset?email=${user.email}&hash=${resetLink}`
                 })
             }else{  
                 return res.status(400).json({
