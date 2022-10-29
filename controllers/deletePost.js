@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-
+const Post = require('../models/postModel')
 module.exports = async (req, res) => {
     try{
         //chech if user id logged in

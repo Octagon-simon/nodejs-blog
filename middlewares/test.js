@@ -1,4 +1,4 @@
-const octaValidate =  require('./octaValidate')
+const octaValidate =  require('octaValidate-nodejs')
 
 const validate = new octaValidate({
     method: "post",

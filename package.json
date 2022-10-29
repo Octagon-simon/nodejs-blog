@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Octagon-simon/nodejs-blog.git"
+  },
+  "keywords": [
+    "blog",
+    "nodejs-blog",
+    "crud"
+  ],
+  "author": "Simon Ugorji",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Octagon-simon/nodejs-blog/issues"
+  },
+  "homepage": "https://github.com/Octagon-simon/nodejs-blog#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.7.0",
+    "multer": "^1.4.5-lts.1",
+    "octavalidate-nodejs": "^1.0.0"
+  }
+}

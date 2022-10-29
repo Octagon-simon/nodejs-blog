@@ -1,5 +1,5 @@
 //import library
-const octavalidate = require('./octaValidate')
+const octavalidate = require('octaValidate-nodejs')
 //init class
 const validate =  new octavalidate('form_new_post')
 
